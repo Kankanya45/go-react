@@ -1,3 +1,21 @@
+/* Resetting some default styles */
+body,
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+/* Adding styles to #root */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,19 +23,24 @@
   text-align: center;
 }
 
+/* Styling for the logo */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  border-radius: 50%; /* Making the logo round */
 }
 
+.logo:hover {
+  filter: drop-shadow(0 0 0.5em #646cff);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 0.5em #61dafb);
+}
+
+/* Adding animation to the logo */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -27,16 +50,37 @@
   }
 }
 
+/* Applying animation only if prefers-reduced-motion is not set */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* Adding styles to the card class */
 .card {
   padding: 2em;
+  margin-top: 2em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* Adding a white background */
 }
 
+/* Adding styles to the "read-the-docs" class */
 .read-the-docs {
-  color: #888;
+  color: #555; /* Darkening the color for better visibility */
+  margin-top: 1em;
+  font-size: 1.2em; /* Increasing the font size */
+}
+
+/* Adjusting link styles */
+a {
+  color: #007bff; /* Changing link color to a blue shade */
+  text-decoration: none; /* Removing underline */
+  font-weight: bold; /* Making the text bold */
+}
+
+a:hover {
+  color: #0056b3; /* Darkening the color on hover */
 }
