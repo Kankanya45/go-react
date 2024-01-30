@@ -1,86 +1,65 @@
-/* Resetting some default styles */
-body,
-h1,
-h2,
-h3,
-p,
-ul {
+body {
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #fce4ec; /* Light pink background color */
+  color: #333; /* Dark text color */
 }
 
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f8f8;
-  color: #333;
-}
-
-/* Adding styles to #root */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.app-container {
   text-align: center;
 }
 
-/* Styling for the logo */
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-  border-radius: 50%; /* Making the logo round */
+.block {
+  display: flex;
+  flex-direction: row; /* Change to row to align horizontally */
+  justify-content: space-around; /* Adjust as needed */
+  align-items: center;
+  padding: 20px;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 0.5em #646cff);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 0.5em #61dafb);
-}
-
-/* Adding animation to the logo */
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Applying animation only if prefers-reduced-motion is not set */
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-/* Adding styles to the card class */
+/* Card styles */
 .card {
-  padding: 2em;
-  margin-top: 2em;
-  border: 1px solid #ddd;
+  background-color: #ffb6c1; /* Light pink card background color */
+  width: 300px;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ff69b4; /* Pink border color */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff; /* Adding a white background */
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3); /* Pink box-shadow */
 }
 
-/* Adding styles to the "read-the-docs" class */
-.read-the-docs {
-  color: #555; /* Darkening the color for better visibility */
-  margin-top: 1em;
-  font-size: 1.2em; /* Increasing the font size */
+.card-container {
+  display: flex;
+  justify-content: space-around; /* Adjust as needed */
+  align-items: center; /* Align items vertically in the center */
+  flex-wrap: wrap;
 }
 
-/* Adjusting link styles */
-a {
-  color: #007bff; /* Changing link color to a blue shade */
-  text-decoration: none; /* Removing underline */
-  font-weight: bold; /* Making the text bold */
+h1 {
+  color: #ff69b4; /* Pink heading color */
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
-a:hover {
-  color: #0056b3; /* Darkening the color on hover */
+/* Optional: Add some spacing and styling to the components inside the cards */
+.card > div {
+  margin-top: 15px;
+}
+
+/* Optional: Style for ItemsList, Students, Subjects components */
+.ItemsList-item,
+.Students-item,
+.Subjects-item {
+  padding: 10px;
+  background-color: #ffcccb; /* Light pink item background color */
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ItemsList-item:hover,
+.Students-item:hover,
+.Subjects-item:hover {
+  background-color: #ffafaf; /* Lighter pink background on hover */
 }

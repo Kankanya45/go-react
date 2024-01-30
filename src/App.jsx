@@ -1,40 +1,43 @@
-// Importing the CSS file for styling.
+import React from "react";
 import "./App.css";
 
 // Importing components from specified paths.
 import ItemList from "./components/ItemList";
-import StudentsList from "./components/StudentsList";
-import SubjectsList from "./components/SubjectsList";
+import Student from "./components/StudentsList";
+import Subject from "./components/SubjectsList";
+
+import ItemFormFind from "./components/itemFormfile";
+import ItemFormFindStu from "./components/StudentFormfile"
+import ItemFormFindSub from "./components/SubjectFormfile"
+
 
 // The main function component for the application.
 function App() {
-  // Returning JSX (JavaScript XML) code.
   return (
-    <>
-      {/* เปิด div ที่มี className เป็น "block" เพื่อให้สามารถกำหนดสไตล์ได้. */}
-      <div className="block">
-        {/* เพิ่มหัวข้อด้วย className เป็น "pt-5" เพื่อกำหนด padding-top. */}
-        <h1 className="pt-5">My Front-End</h1>
+    <div className="app-container">
+      <h1 className="app-header">My Front-End</h1>
 
-        {/* สร้างการ์ดด้วย className เป็น "card" และ padding-left. */}
-        <div className="card pl-20">
-          {/* แสดงคอมโพเนนต์ ItemsList. */}
+      <div className="card-container">
+        <div className="card">
+          <h2>Items List</h2>
           <ItemList />
+          <ItemFormFind />
         </div>
 
-        {/* สร้างการ์ดอีกอันสำหรับคอมโพเนนต์ Subjects. */}
         <div className="card">
-          <SubjectsList />
+          <h2>Subjects</h2>
+          <Subject />
+          <ItemFormFindSub />
         </div>
 
-        {/* สร้างการ์ดอีกอันสำหรับคอมโพเนนต์ Students. */}
         <div className="card">
-          <StudentsList/>
+          <h2>Students</h2>
+          <Student />
+          <ItemFormFindStu />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-// ทำการ export คอมโพเนนต์ App เป็น default export.
 export default App;

@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
+import Item from "../subject"; // Import the Item component
 
 const SubjectsList = () => {
-  const [subjects, setSubjects] = useState([]); // State to store the items
-  const [isLoading, setIsLoading] = useState(true); // State to handle loading status
-  const [error, setError] = useState(null); // State to handle any errors
+  const [subjects, setSubjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Function to fetch items from the API
+  const [inputId, setInputId] = useState("");
+  const [itemId, setItemId] = useState(null);
+
+  useEffect(() => {
+    console.log("Updated itemId=" + itemId);
+  }, [itemId]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("inputId=" + inputId);
+    setItemId(Number(inputId)); // Convert inputId to a number
+    console.log("itemId=" + itemId);
+    setInputId(""); // Clear input after submission
+  };
+
   const fetchSubjects = async () => {
     try {
       const response = await fetch("http://localhost:5000/subjects");
@@ -13,7 +28,7 @@ const SubjectsList = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setSubjects(data); // Update the state with the fetched items data into the items array
+      setSubjects(data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -50,6 +65,22 @@ const SubjectsList = () => {
           </tbody>
         </table>
       )}
+      <br />
+
+      <form onSubmit={handleSubmit}>
+        <label>
+          Enter Item ID:
+          <input
+            type="number"
+            value={inputId}
+            onChange={(e) => setInputId(e.target.value)}
+            required
+          />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+      {/* Render the Item component if itemId is not null */}
+      {itemId !== null && <Item id={itemId} />}
     </div>
   );
 };
