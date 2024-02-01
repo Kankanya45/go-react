@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ItemSub from '../subject';
-
+import ItemSub from '../Subjects';
 const ItemFormFindSub = () => {
     const [inputId, setInputId] = useState('');
     const [itemId, setItemId] = useState(null);

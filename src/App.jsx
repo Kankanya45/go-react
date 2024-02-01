@@ -1,42 +1,70 @@
-import React from "react";
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import "./App.css";
 
-// Importing components from specified paths.
-import ItemList from "./components/ItemList";
-import Student from "./components/StudentsList";
-import Subject from "./components/SubjectsList";
+import ItemsList from './components/Items';
+import Students from './components/Students';
+import Subjects from './components/Subjects';
+import ItemFormFind from './components/ItemFormfile';
+import ItemFormFindStu from './components/StudentFormfile';
+import ItemFormFindSub from './components/SubjectFormfile';
+import SignIn from './components/SignIn';
+import Register from './components/Register';
 
-import ItemFormFind from "./components/itemFormfile";
-import ItemFormFindStu from "./components/StudentFormfile"
-import ItemFormFindSub from "./components/SubjectFormfile"
-
-
-// The main function component for the application.
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
-    <div className="app-container">
-      <h1 className="app-header">My Front-End</h1>
+     <Router>
+      <div>
+        <h3>My Project</h3>
+        <nav>
+            <Link to="/">หน้าหลัก</Link>
+            <hr />
+            {!isLoggedIn && (
+               <>
+               <Link to="/signin">เข้าสู่ระบบ</Link>
+               <Link to="/Register">ลงทะเบียน</Link>
+             </>
+            )}
+        </nav>
 
-      <div className="card-container">
-        <div className="card">
-          <h2>Items List</h2>
-          <ItemList />
-          <ItemFormFind />
-        </div>
-
-        <div className="card">
-          <h2>Subjects</h2>
-          <Subject />
-          <ItemFormFindSub />
-        </div>
-
-        <div className="card">
-          <h2>Students</h2>
-          <Student />
-          <ItemFormFindStu />
-        </div>
+        {/* Add the Routes component to the App */}
+        {/* <> xxx </>คือตำแหน่งที่ข้อมูลจาก Component คือค่ามา */}
+        <Routes>
+          <Route path="/signin" element={<SignIn onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/Register" element={<Register/>} />
+          <Route path="/" element={
+            <> 
+              <div className="card">
+                {isLoggedIn ? (
+                  <>
+                    <p>ยินดีต้อนรับ</p>
+                    <p><ItemsList/></p>
+                    <hr/>
+                    <p><Students/></p>
+                    <hr/>
+                    <p><Subjects/></p>
+                    <hr/>
+                    <p><ItemFormFind/></p>
+                    <hr/>
+                    <p><ItemFormFindStu/></p>
+                    <hr/>
+                    <p><ItemFormFindSub/></p>
+                  </>
+                ) : (
+                  <p>กรุณา Login ก่อนใช้งานทุกครั้งเจ้าค่ะ !! </p>
+                )}
+              </div>
+            </>
+          }/>
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 

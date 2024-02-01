@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ItemStu from '../student'; // Ensure this path is correct
+import ItemStu from '../Students'; // Ensure this path is correct
 
 const ItemFormFindStu = () => {
     const [inputId, setInputId] = useState('');
