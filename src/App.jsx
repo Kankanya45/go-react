@@ -10,6 +10,9 @@ import ItemFormFindStu from './components/StudentFormfile';
 import ItemFormFindSub from './components/SubjectFormfile';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
+import Teacher from './components/Teacher';
+import ItemFormFindTea from './components/teacherFormfile';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,11 +53,15 @@ function App() {
                     <hr/>
                     <p><Subjects/></p>
                     <hr/>
+                    <p><Teacher/></p>
+                    <hr/>
                     <p><ItemFormFind/></p>
                     <hr/>
                     <p><ItemFormFindStu/></p>
                     <hr/>
                     <p><ItemFormFindSub/></p>
+                    <hr/>
+                    <p><ItemFormFindTea/></p>
                   </>
                 ) : (
                   <p>กรุณา Login ก่อนใช้งานทุกครั้งเจ้าค่ะ !! </p>
