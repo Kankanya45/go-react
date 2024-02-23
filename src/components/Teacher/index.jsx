@@ -188,18 +188,30 @@ const Teachers = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-pink-100">
       <h1 className="text-3xl font-semibold mb-4 text-center">
-        Teacher List
+      👩‍🏫ᴛᴇᴀᴄʜᴇʀ ʟɪsᴛ
       </h1>
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg w-4/5 mx-auto">
         <br />
         <div className="flex justify-evenly">
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
+        <button
+            className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center"
             onClick={openModal}
           >
-            Add Teacher
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-1"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 2a1 1 0 00-1 1v6H3a1 1 0 100 2h6v6a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Add
           </button>
         </div>
         <br />
@@ -219,7 +231,7 @@ const Teachers = () => {
                 Salary
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
+              Menu
               </th>
             </tr>
           </thead>
@@ -238,13 +250,14 @@ const Teachers = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center"
                     onClick={() => handleEdit(teacher)}
                   >
                     Edit
                   </button>
+                  <br />
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded flex items-center"
                     onClick={() => {
                       setDeletingTeacherId(teacher.ID);
                       setDeleteModalIsOpen(true);
@@ -265,7 +278,7 @@ const Teachers = () => {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg"
         overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50"
       >
-        <h2 className="text-2xl font-semibold mb-4">Add Teacher</h2>
+        <h2 className="text-2xl font-semibold mb-4">Add</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col space-y-2">
             <label
@@ -334,7 +347,7 @@ const Teachers = () => {
           </div>
           <button
             type="submit"
-            className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded flex items-center"
           >
             Add
           </button>
@@ -441,8 +454,8 @@ const Teachers = () => {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg"
         overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50"
       >
-        <h2 className="text-2xl font-semibold mb-4">Confirm Delete Teacher</h2>
-        <p>Are you sure you want to delete this teacher?</p>
+        <h2 className="text-2xl font-semibold mb-4">Are you sure?</h2>
+        <p>Are you sure want to delete?</p>
         <div className="flex justify-center mt-4">
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
@@ -459,22 +472,25 @@ const Teachers = () => {
         </div>
       </Modal>
       <div className="mt-4">
-        <ul className="flex justify-center">
-          {Array.from({
-            length: Math.ceil(teachers.length / teachersPerPage),
-          }).map((_, index) => (
-            <li key={index}>
-              <button
-                className="bg-blue-100 hover:bg-blue-300 text-gray-800 font-semibold py-2 px-4 mx-1 rounded"
-                onClick={() => paginate(index + 1)}
-              >
-                {index + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <ToastContainer />
+  <ul className="flex justify-center">
+    {Array.from({ length: Math.ceil(teachers.length / teachersPerPage) }).map((_, index) => (
+      <li key={index}>
+        <button
+          className={`${
+            currentPage === index + 1
+              ? "bg-pink-300 text-white"
+              : "bg-pink-100 hover:bg-pink-200 text-gray-800"
+          } font-semibold py-2 px-4 mx-1 rounded`}
+          onClick={() => paginate(index + 1)}
+        >
+          {index + 1}
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+<ToastContainer />
+
     </div>
   );
 };
