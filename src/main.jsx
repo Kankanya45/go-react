@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css'; // นำเข้าไฟล์ CSS ของ Tailwind CSS ที่คุณสร้างไว้
+import './index.css';
 import { BrowserRouter } from 'react-router-dom';
+//import Home from './components/Home';
 
 ReactDOM.render(
   <React.StrictMode>

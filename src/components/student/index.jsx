@@ -24,6 +24,8 @@ const Student = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [deletingStudentId, setDeletingStudentId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     fetchStudents();
@@ -44,10 +46,7 @@ const Student = () => {
 
   const indexOfLastStudent = currentPAge * studentsPerPAge;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPAge;
-  const currentStudents = students.slice(
-    indexOfFirstStudent,
-    indexOfLastStudent
-  );
+  const currentStudents = searchResults.length > 0 ? searchResults : students.slice(indexOfFirstStudent, indexOfLastStudent);
 
   const paginate = (pAgeNumber) => setCurrentPAge(pAgeNumber);
 
@@ -171,30 +170,52 @@ const Student = () => {
     setModalIsOpen(false);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    const results = students.filter((student) =>
+      student.FirstName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+      student.LastName.toLowerCase().includes(event.target.value.toLowerCase()) ||
+      student.Age.toString().toLowerCase().includes(event.target.value.toLowerCase()) ||
+      student.Grade.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setSearchResults(results);
+  };
+
   return (
     <div className="p-4 bg-pink-100">
       <h1 className="text-3xl font-semibold mb-4 text-center">🎓sᴛᴜᴅᴇɴᴛ ʟɪsᴛ</h1>
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg w-4/5 mx-auto">
         <br />
-        <div className="flex justify-end">
-          <button
-            className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center"
-            onClick={openModal}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+        <div className="flex justify-between items-center">
+          <div>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+            />
+          </div>
+          <div>
+            <button
+              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded flex items-center"
+              onClick={openModal}
             >
-              <path
-                fillRule="evenodd"
-                d="M10 2a1 1 0 00-1 1v6H3a1 1 0 100 2h6v6a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Add
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-1"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 2a1 1 0 00-1 1v6H3a1 1 0 100 2h6v6a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Add
+            </button>
+          </div>
         </div>
         <br />
         <table className="min-w-full divide-y divide-gray-200">
@@ -295,10 +316,10 @@ const Student = () => {
               type="text"
               id="FirstName"
               name="FirstName"
-              
               value={newStudentData.FirstName}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
           <div className="flex flex-col space-y-2">
@@ -312,10 +333,10 @@ const Student = () => {
               type="text"
               id="LastName"
               name="LastName"
-              
               value={newStudentData.LastName}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
           <div className="flex flex-col space-y-2">
@@ -326,13 +347,12 @@ const Student = () => {
               type="number"
               id="Age"
               name="Age"
-              
               value={newStudentData.Age}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
-
           <div className="flex flex-col space-y-2">
             <label
               htmlFor="Grade"
@@ -343,179 +363,152 @@ const Student = () => {
             <input
               type="text"
               id="Grade"
-              name="Grade" 
-              
+              name="Grade"
               value={newStudentData.Grade}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
-          <button
-            type="submit"
-            className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Add
-          </button>
+          <div className="flex justify-end items-center space-x-4">
+            <button
+              type="submit"
+              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              onClick={closeModal}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Modal>
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={() => setEditModalIsOpen(false)}
-        contentLabel="Edit"
+        contentLabel="Edit Student"
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg"
         overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50"
       >
-        <h2 className="text-2xl font-semibold mb-4">Edit</h2>
-        <form onSubmit={handleSaveEdit} className="space-y-4">
+        <h2 className="text-2xl font-semibold mb-4">Edit Student</h2>
+        <form className="space-y-4">
           <div className="flex flex-col space-y-2">
             <label
-              htmlFor="edit-FirstName"
+              htmlFor="editedFirstName"
               className="text-sm font-medium text-gray-700"
             >
               First Name
             </label>
             <input
               type="text"
-              id="edit-FirstName"
-              name="edit-FirstName"
+              id="editedFirstName"
+              name="editedFirstName"
               value={editedFirstName}
               onChange={(e) => setEditedFirstName(e.target.value)}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
           <div className="flex flex-col space-y-2">
             <label
-              htmlFor="edit-LastName"
+              htmlFor="editedLastName"
               className="text-sm font-medium text-gray-700"
             >
               Last Name
             </label>
             <input
               type="text"
-              id="edit-LastName"
-              name="edit-LastName"
+              id="editedLastName"
+              name="editedLastName"
               value={editedLastName}
               onChange={(e) => setEditedLastName(e.target.value)}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
           <div className="flex flex-col space-y-2">
             <label
-              htmlFor="edit-Age"
+              htmlFor="editedAge"
               className="text-sm font-medium text-gray-700"
             >
               Age
             </label>
             <input
               type="number"
-              id="edit-Age"
-              name="edit-Age"
+              id="editedAge"
+              name="editedAge"
               value={editedAge}
               onChange={(e) => setEditedAge(e.target.value)}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
           <div className="flex flex-col space-y-2">
             <label
-              htmlFor="edit-Grade"
+              htmlFor="editedGrade"
               className="text-sm font-medium text-gray-700"
             >
               Grade
             </label>
             <input
               type="text"
-              id="edit-Grade"
-              name="edit-Grade"
+              id="editedGrade"
+              name="editedGrade"
               value={editedGrade}
               onChange={(e) => setEditedGrade(e.target.value)}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              required
             />
           </div>
-          <button
-            type="submit"
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Save
-          </button>
-          <br />
-          <button
-            type="button"
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => {
-              setEditModalIsOpen(false);
-              setEditedFirstName("");
-              setEditedLastName("");
-              setEditedAge("");
-              setEditedGrade("");
-            }}
-          >
-            Cancel
-          </button>
+          <div className="flex justify-end items-center space-x-4">
+            <button
+              type="button"
+              onClick={handleSaveEdit}
+              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={() => setEditModalIsOpen(false)}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Modal>
       <Modal
         isOpen={deleteModalIsOpen}
         onRequestClose={() => setDeleteModalIsOpen(false)}
-        contentLabel="Confirm Delete"
+        contentLabel="Delete Student"
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-lg"
         overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50"
       >
-        <h2 className="text-2xl font-semibold mb-4">Are you sure?</h2>
-        <p>Are you sure want to delete?</p>
-        <div className="flex justify-center mt-4">
+        <h2 className="text-2xl font-semibold mb-4">Delete Student</h2>
+        <p>Are you sure you want to delete this student?</p>
+        <div className="flex justify-end items-center space-x-4 mt-6">
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+            type="button"
             onClick={handleDelete}
+            className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
           >
-            Confirm
+            Delete
           </button>
           <button
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            type="button"
             onClick={() => setDeleteModalIsOpen(false)}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
           >
             Cancel
           </button>
         </div>
       </Modal>
-      <div className="mt-4">
-        <ul className="flex justify-center">
-          <li
-            className={`${
-              currentPAge === 1 ? "pointer-events-none" : ""
-            } px-3 py-1 bg-gray-200 rounded-l`}
-            onClick={() => paginate(currentPAge - 1)}
-          >
-            Prev
-          </li>
-          {[...Array(Math.ceil(students.length / studentsPerPAge)).keys()].map(
-            (number) => (
-              <li
-                key={number}
-                onClick={() => paginate(number + 1)}
-                className={`${
-                  currentPAge === number + 1
-                    ? "bg-pink-500 text-white font-semibold"
-                    : ""
-                } px-3 py-1 cursor-pointer rounded`}
-              >
-                {number + 1}
-              </li>
-            )
-          )}
-          <li
-            className={`${
-              currentPAge === Math.ceil(students.length / studentsPerPAge)
-                ? "pointer-events-none"
-                : ""
-            } px-3 py-1 bg-gray-200 rounded-r`}
-            onClick={() => paginate(currentPAge + 1)}
-          >
-            Next
-          </li> 
-        </ul>
-      </div>
       <ToastContainer />
-
     </div>
   );
 };

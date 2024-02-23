@@ -65,13 +65,12 @@ const Teachers = () => {
   const handleSaveEdit = async () => {
     if (editingTeacher) {
       const updatedAge = parseInt(editedAge);
-      // แปลงค่า Salary เป็นตัวเลขทศนิยม
       const updatedSalary = parseFloat(editedSalary);
       const updatedTeacher = {
         ...editingTeacher,
         FirstName: editedFirstName,
         LastName: editedLastName,
-        Age: updatedAge, // ใช้ค่าที่แปลงแล้ว
+        Age: updatedAge,
         Salary: updatedSalary,
       };
 
@@ -113,7 +112,6 @@ const Teachers = () => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-       
         `http://localhost:5000/teachers/${deletingTeacherId}`,
         {
           method: "DELETE",
@@ -190,27 +188,22 @@ const Teachers = () => {
   return (
     <div className="p-4 bg-pink-100">
       <h1 className="text-3xl font-semibold mb-4 text-center">
-      👩‍🏫ᴛᴇᴀᴄʜᴇʀ ʟɪsᴛ
+        👩‍🏫ᴛᴇᴀᴄʜᴇʀ ʟɪsᴛ
       </h1>
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg w-4/5 mx-auto">
         <br />
-        <div className="flex justify-evenly">
-        <button
-            className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center"
+        <div className="flex justify-end items-center mb-4">
+          <div className="w-1/4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 w-full"
+            />
+          </div>
+          <button
+            className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
             onClick={openModal}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 2a1 1 0 00-1 1v6H3a1 1 0 100 2h6v6a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
             Add
           </button>
         </div>
@@ -231,7 +224,7 @@ const Teachers = () => {
                 Salary
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Menu
+                Menu
               </th>
             </tr>
           </thead>
@@ -291,7 +284,6 @@ const Teachers = () => {
               type="text"
               id="firstName"
               name="firstName"
-              
               value={newTeacherData.firstName}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -308,7 +300,6 @@ const Teachers = () => {
               type="text"
               id="lastName"
               name="lastName"
-              
               value={newTeacherData.lastName}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -322,7 +313,6 @@ const Teachers = () => {
               type="number"
               id="age"
               name="age"
-              
               value={newTeacherData.age}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -339,7 +329,6 @@ const Teachers = () => {
               type="number"
               id="salary"
               name="salary"
-              
               value={newTeacherData.salary}
               onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -472,25 +461,24 @@ const Teachers = () => {
         </div>
       </Modal>
       <div className="mt-4">
-  <ul className="flex justify-center">
-    {Array.from({ length: Math.ceil(teachers.length / teachersPerPage) }).map((_, index) => (
-      <li key={index}>
-        <button
-          className={`${
-            currentPage === index + 1
-              ? "bg-pink-300 text-white"
-              : "bg-pink-100 hover:bg-pink-200 text-gray-800"
-          } font-semibold py-2 px-4 mx-1 rounded`}
-          onClick={() => paginate(index + 1)}
-        >
-          {index + 1}
-        </button>
-      </li>
-    ))}
-  </ul>
-</div>
-<ToastContainer />
-
+        <ul className="flex justify-center">
+          {Array.from({ length: Math.ceil(teachers.length / teachersPerPage) }).map((_, index) => (
+            <li key={index}>
+              <button
+                className={`${
+                  currentPage === index + 1
+                    ? "bg-pink-300 text-white"
+                    : "bg-pink-100 hover:bg-pink-200 text-gray-800"
+                } font-semibold py-2 px-4 mx-1 rounded`}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <ToastContainer />
     </div>
   );
 };

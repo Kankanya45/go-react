@@ -2,18 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  // State to track login status
+
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const userEmail = localStorage.getItem("email");
-
-  // Function to handle logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("email");
     console.log("Logout successful");
-    // Update login status
     setIsLoggedIn(false);
-    // Redirect to login page after logout
     window.location.href = "/login";
     window.location.href = "/Register";
   };
@@ -29,7 +25,7 @@ const Navbar = () => {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <span className="self-center text-4xl font-semibold whitespace-nowrap text-white">
-              ── ·· 𝓜𝔂 𝓢𝓬𝓱𝓸𝓸𝓵 ·· ──  
+             
             </span>
           </Link> 
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
@@ -41,7 +37,7 @@ const Navbar = () => {
                 className="text-lg text-white bg-pink-300 hover:bg-pink-500 px-4 py-2 rounded-md transition duration-300 shadow-md"
                 onClick={handleLogout}
               >
-                Logout
+                ʟᴏɢᴏᴜᴛ
               </button>
             ) : (
               <>
@@ -49,13 +45,13 @@ const Navbar = () => {
                   to="/login"
                   className="text-lg text-white bg-pink-300 hover:bg-pink-500 px-4 py-2 rounded-md transition duration-300 shadow-md"
                 >
-                  Login
+                  ʟᴏɢɪɴ
                 </Link>
                 <Link
                   to="/Register"
                   className="text-lg text-white bg-pink-300 hover:bg-pink-500 px-4 py-2 rounded-md transition duration-300 shadow-md"
                 >
-                  Register
+                  sɪɢɴɪɴ
                 </Link>
               </>
             )}
@@ -73,7 +69,7 @@ const Navbar = () => {
                       to="/User"
                       className="text-white hover:bg-pink-500 hover:text-white px-4 py-2 rounded-md transition duration-300 shadow-md"
                     >
-                      User
+                      ᴜsᴇʀ
                     </Link>
                   </li>
                   <li>
@@ -81,7 +77,7 @@ const Navbar = () => {
                       to="/student"
                       className="text-white hover:bg-pink-500 hover:text-white px-4 py-2 rounded-md transition duration-300 shadow-md"
                     >
-                      Student
+                      sᴛᴜᴅᴇɴᴛ
                     </Link>
                   </li>
                   <li>
@@ -89,7 +85,7 @@ const Navbar = () => {
                       to="/teacher"
                       className="text-white hover:bg-pink-500 hover:text-white px-4 py-2 rounded-md transition duration-300 shadow-md"
                     >
-                      Teacher
+                      ᴛᴇᴀᴄʜᴇʀ
                     </Link>
                   </li>
                   <li>
@@ -97,9 +93,10 @@ const Navbar = () => {
                       to="/subject"
                       className="text-white hover:bg-pink-500 hover:text-white px-4 py-2 rounded-md transition duration-300 shadow-md"
                     >
-                      Subject
+                      sᴜʙᴊᴇᴄᴛ
                     </Link>
                   </li>
+                  
                 </>
               )}
             </ul>

@@ -11,6 +11,7 @@ import Subject from "./components/subject";
 import Footer from "./components/Footer";
 
 
+
 function App() {
   const navigate = useNavigate();
 
