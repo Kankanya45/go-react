@@ -1,78 +1,45 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import "./App.css";
+import React from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
-import ItemsList from './components/Items';
-import Students from './components/Students';
-import Subjects from './components/Subjects';
-import ItemFormFind from './components/ItemFormfile';
-import ItemFormFindStu from './components/StudentFormfile';
-import ItemFormFindSub from './components/SubjectFormfile';
-import SignIn from './components/SignIn';
-import Register from './components/Register';
-import Teacher from './components/Teacher';
-import ItemFormFindTea from './components/teacherFormfile';
+import Navbar from "./components/Navbar";
+import Register from "./components/Register";
+import User from "./components/User";
+import Student from "./components/student";
+import Teachers from "./components/Teacher";
+import SignIn from "./components/SignIn";
+import Subject from "./components/subject";
+import Footer from "./components/Footer";
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
+  const handleLogin = () => {
+    navigate('/User', { replace: true });
+    window.location.reload();
   };
 
   return (
-     <Router>
-      <div>
-        <h3>My Project</h3>
-        <nav>
-            <Link to="/">หน้าหลัก</Link>
-            <hr />
-            {!isLoggedIn && (
-               <>
-               <Link to="/signin">เข้าสู่ระบบ</Link>
-               <Link to="/Register">ลงทะเบียน</Link>
-             </>
-            )}
-        </nav>
-
-        {/* Add the Routes component to the App */}
-        {/* <> xxx </>คือตำแหน่งที่ข้อมูลจาก Component คือค่ามา */}
-        <Routes>
-          <Route path="/signin" element={<SignIn onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="/Register" element={<Register/>} />
-          <Route path="/" element={
-            <> 
-              <div className="card">
-                {isLoggedIn ? (
-                  <>
-                    <p>ยินดีต้อนรับ</p>
-                    <p><ItemsList/></p>
-                    <hr/>
-                    <p><Students/></p>
-                    <hr/>
-                    <p><Subjects/></p>
-                    <hr/>
-                    <p><Teacher/></p>
-                    <hr/>
-                    <p><ItemFormFind/></p>
-                    <hr/>
-                    <p><ItemFormFindStu/></p>
-                    <hr/>
-                    <p><ItemFormFindSub/></p>
-                    <hr/>
-                    <p><ItemFormFindTea/></p>
-                  </>
-                ) : (
-                  <p>กรุณา Login ก่อนใช้งานทุกครั้งเจ้าค่ะ !! </p>
-                )}
-              </div>
-            </>
-          }/>
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <Navbar />
+      <Routes>
+      <Route path="/login" element={<SignIn onLoginSuccess={handleLogin} />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/User" element={<User />} />
+        <Route path="/student" element={<Student />} />
+        <Route path="/subject" element={<Subject />} />
+        <Route path="/teacher" element={<Teachers />} />
+      </Routes>
+      <br />
+      <br />
+      
+      <Footer />
+      
+    </>
+    
   );
+  
 }
+
 
 export default App;
