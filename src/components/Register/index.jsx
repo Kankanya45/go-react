@@ -48,7 +48,7 @@ function Register() {
     <ChakraProvider>
       <Box p={4} bg="pink.50" maxW="md" mx="auto" mt={8} borderRadius="md"> {/* Change background color and adjust width */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold mt-5 mb-3">SignIn </h1>
+          <h1 className="text-4xl font-bold mt-5 mb-3">Register </h1>
         </div>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align='stretch'>
@@ -95,7 +95,7 @@ function Register() {
             </FormControl>
 
             <Button colorScheme="pink" type="submit" size="md"> {/* Change button color and size */}
-            SignIn
+            Register
             </Button>
           </VStack>
         </form>

@@ -51,7 +51,7 @@ const Navbar = () => {
                   to="/Register"
                   className="text-lg text-white bg-pink-300 hover:bg-pink-500 px-4 py-2 rounded-md transition duration-300 shadow-md"
                 >
-                  sɪɢɴɪɴ
+                  ʀᴇɢɪsᴛᴇʀ
                 </Link>
               </>
             )}
